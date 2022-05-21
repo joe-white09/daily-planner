@@ -28,12 +28,38 @@ var loadSchedule = function(){
 };
 
 //function to change background color during the day
+function backgroundColor() {
+    //get current number of hours.
+    var now = moment().hour();
 
-var now = new Date().getHours();
-console.log(now);
+
+    // loop over time blocks
+    $(".task").each(function () {
+        var tasktime = parseInt($(this).parent().attr("id"));
+        console.log(tasktime, now)
+
+        //check if we've moved past this time
+        if (tasktime < now) {
+            $(this).addClass("past");
+            $(this).removeClass("future");
+            $(this).removeClass("present");
+        }
+        else if (tasktime === now) {
+            $(this).removeClass("past");
+            $(this).addClass("present");
+            $(this).removeClass("future");
+        }
+        else {
+            $(this).removeClass("present");
+            $(this).removeClass("past");
+            $(this).addClass("future");
+        }
+    })
+};
 
 
 
 showCurrentDay();
 loadSchedule();
+backgroundColor();
 $("button").click(saveSchedule);
