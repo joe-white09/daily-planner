@@ -36,7 +36,6 @@ function backgroundColor() {
     // loop over time blocks
     $(".task").each(function () {
         var tasktime = parseInt($(this).parent().attr("id"));
-        console.log(tasktime, now)
 
         //check if we've moved past this time
         if (tasktime < now) {
@@ -56,10 +55,14 @@ function backgroundColor() {
         }
     })
 };
-
-
-
+// function calls and click event
 showCurrentDay();
 loadSchedule();
 backgroundColor();
 $("button").click(saveSchedule);
+
+//set interval to change hour colors every every 5 minutes 
+setInterval(function() {
+    backgroundColor();
+}, (1000 * 60) * 5);
+
